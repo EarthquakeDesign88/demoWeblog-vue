@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Travel Blog</title>
+         <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/icon1.png">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+    </head>
+<body>
+    <div id="app">
+        <navbar-component :auth="auth"></navbar-component>
+    
+        <section class="container my-5" v-if="blog">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <nav aria-label="breadcrumb" class="mt-5">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./">Blogs</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ blog.subject }}</li>
+                    </ol>
+                </nav>
+                <img :src="blog.image" class="img-fluid rounded" alt="Travel Blog">
+                <div class="text-center p-4">
+                    <h1 class="h3">{{ blog.subject }}</h1>
+                    <h2 class="h6">
+                        {{ blog.subtitle }}
+                    </h2>
+                    <p class="text-muted">  {{ blog.updated_at }} | <i class="fas fa-eye"></i> 1,000</p>
+                </div>
+                <!-- Content -->
+                <article v-html=" blog.detail"></article>
+                  <!-- End Content -->
+              </div>
+            </div>
+        </section>
+          
+        <footer-component></footer-component>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/http-vue-loader/src/httpVueLoader.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+</body>
+</html>
+
+<script>
+    const AUTH_DATA = localStorage.getItem('auth_data')
+    const AUTH_TOKEN = localStorage.getItem('auth_token')
+
+    new Vue({
+        el: '#app',
+        components: {
+          'navbar-component': httpVueLoader('./components/navbar.vue'),
+          'footer-component': httpVueLoader('./components/footer.vue')
+        },
+        data () {
+            return { 
+                auth: {
+                    data: AUTH_DATA,
+                    token: AUTH_TOKEN
+                },
+                blog: null
+            }
+        },
+        mounted() {
+            this.getBlog()
+        },
+        methods: {
+            getBlog() {
+                const urlParams = new URLSearchParams(window.location.search);
+                axios.get('service/api/blog/detail', {
+                    params: {
+                        id: urlParams.get('id'),
+                        url: urlParams.get('url') 
+                    }
+                }).then((resp) => {
+                    this.blog = resp.data.response
+                })
+            }
+        }
+    });
+</script>
+
+

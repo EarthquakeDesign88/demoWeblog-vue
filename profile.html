@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+   
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/icon1.png">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+   
+</head>
+<body>
+    <div id="app">
+        <navbar-component :auth="auth"></navbar-component>
+
+        <!-- Profile Header -->
+        <section class="profile-page">
+            <div class="container">
+                <div class="row justify-content-center">
+                   <div class="col-12 col-lg-11">
+                        <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80" class="img-fluid cover" alt="Image-cover">
+                   </div>
+                   <div class="col-12 col-lg-11">
+                    <img src="assets/images/uploads/avatar.png" class="img-fluid avatar" alt="Avatar">
+               </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="container text-center">
+            <h1 class="fw-bold">ชื่อจริง นามสกุล</h1>
+            <p class="text-muted">คำแนะนำตัวเอง</p>
+            <hr class="w-75 mx-auto">
+        </section>
+    
+        <!-- Profile Info -->
+        <section class="container mb-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="list-group list-profile sticky-top">
+                                <a href="profile.html" class="list-group-item list-group-item-action active">
+                                    <i class="far fa-user"></i> ข้อมูลส่วนตัว
+                                </a>
+                                <a href="account.html" class="list-group-item list-group-item-action">
+                                    <i class="far fa-user-cog"></i> ตั้งค่าบัญชี
+                                </a>
+                                <!-- <a href="favorite.html" class="list-group-item list-group-item-action">
+                                    <i class="far fa-heart"></i> บทความที่ชอบ
+                                </a> -->
+                    
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <form class="row gy-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="firstname">ชื่อ</label>
+                                            <input type="text" class="form-control" id="firstname" placeholder="ชื่อจริง" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="lastname">นามสกุล</label>
+                                            <input type="text" class="form-control" id="lastname" placeholder="นามสกุล" required>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="introduce">แนะนำตัวเอง</label>
+                                            <input type="text" class="form-control" id="introduce" placeholder="แนะนำตัวเอง" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="email">อีเมล</label>
+                                            <p>example@domain.com</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="phone">เบอร์โทรศัพท์</label>
+                                            <input type="text" class="form-control" id="phone" placeholder="เบอร์โทรศัพท์" required>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="address">ที่อยู่</label>
+                                            <input type="text" class="form-control" id="address" placeholder="บ้านเลขที่ คอนโด อพาทเม้นท์" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label" for="district">ตำบล</label>
+                                            <input type="text" class="form-control" id="district" placeholder="ตำบล" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label" for="amphoe">อำเภอ</label>
+                                            <input type="text" class="form-control" id="amphoe" placeholder="อำเภอ" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="province">จังหวัด</label>
+                                            <input type="text" class="form-control" id="province" placeholder="จังหวัด" required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label" for="zipcode">ไปรษณีย์</label>
+                                            <input type="text" class="form-control" id="zipcode" placeholder="ไปรษณีย์" required>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <footer-component></footer-component>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/http-vue-loader/src/httpVueLoader.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+   
+</body>
+</html>
+
+<script>
+    const AUTH_DATA = localStorage.getItem('auth_data')
+    const AUTH_TOKEN = localStorage.getItem('auth_token')
+
+    if(!AUTH_DATA && !AUTH_TOKEN) {
+        location.assign('./');
+    }
+    new Vue({
+        el: '#app',
+        components: {
+          'navbar-component': httpVueLoader('./components/navbar.vue'),
+          'footer-component': httpVueLoader('./components/footer.vue')
+        },
+        data () {
+            return { 
+                auth: {
+                    data: AUTH_DATA,
+                    token: AUTH_TOKEN
+                }
+
+            }
+        }
+    });
+</script>

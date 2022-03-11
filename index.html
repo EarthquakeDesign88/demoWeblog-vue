@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Blog</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Mali" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+   
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/icon1.png">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+
+</head>
+<body>
+    <div id="app">
+        <navbar-component :auth="auth"></navbar-component>
+    
+        <header class="page-header d-flex align-items-center">
+            <div class="container">
+                <h1 class="fw-bold">{{ subject }}</h1>
+                <h2>{{ title }}</h2>
+            </div>
+        </header>
+      
+        <div class="container">
+            <div class="row justify-content-center">
+                <section class="col-12 col-md-8">
+                    <img src="assets/images/icon1.png" class="avatar" alt=""> 
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="ค้นหาสถานที่ท่องเที่ยว..." aria-label="ค้นหาสถานที่ท่องเที่ยว" aria-describedby="basic-addon1">
+                        <span class="input-group-text btn-outline-secondary" id="basic-addon1">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </section>
+            </div>
+            <div class="row py-5 g-3">
+                <section class="col-12 pb-3 text-center">
+                    <h3>บทความล่าสุด</h3>
+                </section>
+
+                <blog-component v-for="blog in blogs" :key="blogs.blog_id" :blog="blog"></blog-component>
+            </div>
+        </div>
+      
+        <footer-component></footer-component>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/http-vue-loader/src/httpVueLoader.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+</body>
+
+
+</html>
+
+<script>
+    const AUTH_DATA = localStorage.getItem('auth_data')
+    const AUTH_TOKEN = localStorage.getItem('auth_token')
+
+    new Vue({
+        el: '#app',
+        components: {
+          'navbar-component': httpVueLoader('./components/navbar.vue'),
+          'blog-component': httpVueLoader('./components/blog.vue'),
+          'footer-component': httpVueLoader('./components/footer.vue')
+        },
+        data () {
+            return { 
+                subject: 'Enjoy Travel',
+                title: 'สนุก เพลิดเพลิน ไปกับการท่องเที่ยว',
+                blogs: null,
+                auth: {
+                    data: AUTH_DATA,
+                    token: AUTH_TOKEN
+                }
+
+            }
+        },
+        mounted() {
+           this.getBlogs();
+        },
+        methods: {
+            getBlogs() {
+                axios({
+                    method: 'GET',
+                    url: 'service/api/blog',
+                }).then((resp) => {
+                    this.blogs = resp.data.response;
+                }).catch((err) => {
+                    console.log(err);
+                }) 
+            }
+        }
+    });
+</script>
+
+
